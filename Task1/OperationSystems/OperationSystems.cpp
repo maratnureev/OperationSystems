@@ -192,7 +192,7 @@ EquivalenceGroupsAndMatrix MinimazeMatrix(vector<vector<MachineState>> machineMa
     auto equivalenceGroupMap = GroupBySignal(machineMatrix);
     EquivalenceGroupsAndMatrix result;
     result.equivalenceGroupMap = equivalenceGroupMap;
-    result.matrix = RebuildMatrix(machineMatrix, equivalenceGroupMap);
+    result.matrix = RebuildMatrix(machineMatrix, equivalenceGroupMap);  
     return result;
 }
 
@@ -246,11 +246,29 @@ void WriteMooreResultMatrix(EquivalenceGroupsAndMatrix minimazedMatrix, ostream&
     }
 }
 
+void WriteEquivalenceGroup(map<int, vector<int>> equivalenceGroupMap, ostream& output)
+{
+    for (auto const& pair : equivalenceGroupMap)
+    {
+        output << pair.first + 1 << ": ";
+        for (auto state : pair.second)
+        {
+            output << state + 1 << ' ';
+        }
+        output << endl;
+    }
+    output << endl;
+}
+
+
 void WriteResultMatrix(EquivalenceGroupsAndMatrix minimazedMatrix, ostream& output, vector<vector<MachineState>> startMatrix, string machineType)
 {
+    WriteEquivalenceGroup(minimazedMatrix.equivalenceGroupMap, output);
+
     if (machineType == MEALY_MACHINE_TYPE)
     {
         WriteMiliResultMatrix(minimazedMatrix, output, startMatrix);
+        return;
     }
     WriteMooreResultMatrix(minimazedMatrix, output, startMatrix);
 }
