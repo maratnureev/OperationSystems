@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OperationSystems", "Operati
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MachineDeterminator", "MachineDeterminator\MachineDeterminator.vcxproj", "{719BFCF1-4293-4355-9558-4823AA39383D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MilyMooreTransofmer", "MilyMooreTransofmer\MilyMooreTransofmer.vcxproj", "{317A00C6-8E23-4290-8490-6C4ABF55C610}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{719BFCF1-4293-4355-9558-4823AA39383D}.Release|x64.Build.0 = Release|x64
 		{719BFCF1-4293-4355-9558-4823AA39383D}.Release|x86.ActiveCfg = Release|Win32
 		{719BFCF1-4293-4355-9558-4823AA39383D}.Release|x86.Build.0 = Release|Win32
+		{317A00C6-8E23-4290-8490-6C4ABF55C610}.Debug|x64.ActiveCfg = Debug|x64
+		{317A00C6-8E23-4290-8490-6C4ABF55C610}.Debug|x64.Build.0 = Debug|x64
+		{317A00C6-8E23-4290-8490-6C4ABF55C610}.Debug|x86.ActiveCfg = Debug|Win32
+		{317A00C6-8E23-4290-8490-6C4ABF55C610}.Debug|x86.Build.0 = Debug|Win32
+		{317A00C6-8E23-4290-8490-6C4ABF55C610}.Release|x64.ActiveCfg = Release|x64
+		{317A00C6-8E23-4290-8490-6C4ABF55C610}.Release|x64.Build.0 = Release|x64
+		{317A00C6-8E23-4290-8490-6C4ABF55C610}.Release|x86.ActiveCfg = Release|Win32
+		{317A00C6-8E23-4290-8490-6C4ABF55C610}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
