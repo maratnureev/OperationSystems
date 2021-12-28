@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{1e7be5d4-5b88-4940-9857-e91fa134da90}</ProjectGuid>
-    <RootNamespace>OperationSystems</RootNamespace>
+    <ProjectGuid>{480fa56f-02e2-4847-b6a5-ed22e698a0a5}</ProjectGuid>
+    <RootNamespace>Lab4</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,10 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="OperationSystems.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Текст.txt" />
+    <ClCompile Include="Lab4.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
