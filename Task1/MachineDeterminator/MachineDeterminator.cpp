@@ -1,8 +1,11 @@
 ﻿#include <iostream>
+#include <algorithm>
 #include <string>
+#include <fstream>
 #include <sstream>
 #include <map>
 #include <set>
+#include <unordered_set>
 
 using namespace std;
 
@@ -12,7 +15,7 @@ struct Options {
     map<string, map<string, string>> transitionMatrix;
     map<string, map<string, string>> resultMatrix;
     set<string> symbols;
-    set<string> states;
+    vector<string> states;
     string startState;
     string endState;
 };
@@ -70,13 +73,19 @@ Options parseInput(istream& in)
 
 void determinateMatrix(Options& options)
 {
-    options.states.insert(options.startState);
+    
+    options.states.push_back(options.startState);
     options.resultMatrix[options.startState] = options.transitionMatrix[options.startState];
-    for (auto& inputState : options.states)
-    {
+    int findedIndex = 1;
+    do {
+        auto inputState = options.states[findedIndex-1];
+        findedIndex++;
         for (auto& pair : options.transitionMatrix[inputState])
         {
-            options.states.insert(pair.second);
+            if (std::find(options.states.begin(), options.states.end(), pair.second) == options.states.end())
+            {
+                options.states.push_back(pair.second);
+            }
             if (pair.second.size() == 1 || options.transitionMatrix.count(pair.second) == 1)
             {
                 options.resultMatrix[pair.second] = options.transitionMatrix[pair.second];
@@ -94,10 +103,14 @@ void determinateMatrix(Options& options)
                             transitions[symbol] += *it;
                 }
             }
+            for (auto it = transitions.begin(); it != transitions.end(); it++)
+            {
+                sort(it->second.begin(), it->second.end());
+            }
             options.resultMatrix[pair.second] = transitions;
             options.transitionMatrix[pair.second] = transitions;
         }
-    }
+    } while (findedIndex < options.states.size());
 }
 
 void writeResult(Options& options, ostream& out)
@@ -113,8 +126,12 @@ void writeResult(Options& options, ostream& out)
     }
 }
 
-int main()
+int main(int argc, char* argv[])
 {
+    /*string inputFileName = argv[1];
+    string outputFileName = argv[2];
+    ifstream input(inputFileName);
+    ofstream output(outputFileName);*/
     auto options = parseInput(cin);
     determinateMatrix(options);
     writeResult(options, cout);
