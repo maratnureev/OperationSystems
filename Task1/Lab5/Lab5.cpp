@@ -42,9 +42,9 @@ vector<Line> matrix = {
     Line{"*", vector<string>{"*"}, true, true, 21, false, false},
     Line{"F", vector<string>{"9", "a", "-", "("}, false, true, 23, true, false},
     Line{"B", vector<string>{"*", "+"}, false, true, 17, false, false},
-    Line{"F", vector<string>{"9"}, false, false, 27, true, false},
-    Line{"F", vector<string>{"a"}, false, false, 28, true, false},
-    Line{"F", vector<string>{"-"}, false, false, 29, true, false},
+    Line{"F", vector<string>{"9"}, false, false, 27, false, false},
+    Line{"F", vector<string>{"a"}, false, false, 28, false, false},
+    Line{"F", vector<string>{"-"}, false, false, 29, false, false},
     Line{"F", vector<string>{"("}, false, true, 31, false, false},
     Line{"9", vector<string>{"9"}, true, true, -1, false, false},
     Line{"a", vector<string>{"a"}, true, true, -1, false, false},
@@ -67,35 +67,28 @@ bool handleStringByGrammar(string value)
     {
         if (find(matrix[i].directSymbols.begin(), matrix[i].directSymbols.end(), ch) != matrix[i].directSymbols.end())
         {
+            int nextPointer = i;
             if (matrix[i].end)
                 return true;
             if (matrix[i].pushToStack)
                 callStack.push(i);
+            if (matrix[i].pointer != -1)
+                nextPointer = matrix[i].pointer;
             if (matrix[i].shift)
             {
-                stream >> ch1;
-                ch = '\0' + ch1;
                 if (callStack.size() != 0 && matrix[i].pointer == -1)
                 {
-                    i = callStack.top() + 1;
+                    nextPointer = callStack.top() + 1;
                     callStack.pop();
                 }
+                stream >> ch1;
+                ch = '\0' + ch1;
             }
-            if (matrix[i].pointer != -1)
-                i = matrix[i].pointer;
-
+            i = nextPointer;
         }
         else if (matrix[i].error)
         {
-            if (callStack.size() != 0)
-            {
-                i = callStack.top() + 1;
-                callStack.pop();
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
         else
         {

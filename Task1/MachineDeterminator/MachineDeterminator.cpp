@@ -73,7 +73,6 @@ Options parseInput(istream& in)
 
 void determinateMatrix(Options& options)
 {
-    
     options.states.push_back(options.startState);
     options.resultMatrix[options.startState] = options.transitionMatrix[options.startState];
     int findedIndex = 1;

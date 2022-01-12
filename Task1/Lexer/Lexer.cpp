@@ -16,9 +16,9 @@ enum class TokenType
 {
     KEYWORDS,
     IDENTIFIER,
-    OPERATOR,
+    OPERATOR, // Выделить типы операторов 
     DELIMITER,
-    LITERAL,
+    LITERAL, // Выделить число, строку, литерал
     UNKNOWN,
 };
 
@@ -60,8 +60,8 @@ map<std::string, TokenType> tokensMap = {
     {"map", TokenType::KEYWORDS},
     {"smatch", TokenType::KEYWORDS},
 
-    {"true", TokenType::LITERAL},
-    {"false", TokenType::LITERAL},
+    {"true", TokenType::KEYWORDS},
+    {"false", TokenType::KEYWORDS},
 
     {"(", TokenType::DELIMITER},
     {")", TokenType::DELIMITER},
@@ -71,7 +71,6 @@ map<std::string, TokenType> tokensMap = {
     {"}", TokenType::DELIMITER},
     {",", TokenType::DELIMITER},
     {";", TokenType::DELIMITER},
-    {":", TokenType::DELIMITER},
 
     {".", TokenType::OPERATOR},
     {"=", TokenType::OPERATOR},
@@ -116,6 +115,7 @@ bool IsNumeric(string s)
     return (s >= "0") && (s <= "9");
 }
 
+// позиция токена
 struct Token {
     string token;
     TokenType type;
@@ -153,6 +153,10 @@ void SkipWhiteSpacesAndComments(Tokenizer& tokenizer)
         while (tokenizer.getTwoCurrentSymbols() == "*/")
         {
             tokenizer.currentIndex++;
+            if (tokenizer.currentIndex >= tokenizer.input.size())
+            {
+                throw exception("Invalid input");
+            }
         }
         tokenizer.currentIndex += 2;
     }
@@ -254,6 +258,7 @@ Token GetToken(Tokenizer &tokenizer)
         tokenizer.currentIndex++;
         while (IsNumeric(tokenizer.getOneCurrentSymbol()))
         {
+            // добавить ограничения по размеру
             token.token += tokenizer.getOneCurrentSymbol();
             tokenizer.currentIndex++;
         }
@@ -281,9 +286,9 @@ string readFile(string inputFile)
 int main(int argc, char* argv[])
 {
     string inputFileName = argv[1];
-    string outputFileName = argv[2];
+    //string outputFileName = argv[2];
     string input = readFile(inputFileName);
-    ofstream output(outputFileName);
+    //ofstream output(outputFileName);
     Tokenizer tokenizer;
     tokenizer.input = input;
     while (tokenizer.currentIndex < tokenizer.input.size())
@@ -291,6 +296,6 @@ int main(int argc, char* argv[])
         auto token = GetToken(tokenizer);
         if (token.type == TokenType::UNKNOWN)
             break;
-        output << "[" + token.token + ",\t\t" + GetTokenName(token.type) + "]" << endl;
+        cout << "[" + token.token + "\t\t" + GetTokenName(token.type) + "]" << endl;
     }
 }
